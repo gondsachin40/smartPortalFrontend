@@ -6,19 +6,20 @@ import { Injectable } from '@angular/core';
 export class User {
   name: string | undefined;
   token: string | undefined;
-  constructor(){
+  constructor() {
     console.log('calling user services')
   }
-  setToken(toke : string){
+  setToken(toke: string) {
     this.token = toke;
   }
-  getToken(){
-    return this.token;
+  getToken() {
+    return "sachin";
+    // return this.token;
   }
-  getUser(){
-    
+  getUser() {
+
   }
-  setUser(){
+  setUser() {
 
   }
 } 
