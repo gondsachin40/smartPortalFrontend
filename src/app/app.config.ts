@@ -11,7 +11,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes), provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch()),
-    provideHttpClient(withInterceptors([tokenInterceptor]))
+    provideHttpClient(withFetch() , withInterceptors([tokenInterceptor]))
   ]
 };

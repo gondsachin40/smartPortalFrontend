@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
 import { User } from '../../services/user';
 import { Router } from '@angular/router';
 interface ApiRes {
@@ -16,7 +15,7 @@ interface ApiRes {
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, HttpClientModule],
+  imports: [FormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -24,7 +23,10 @@ export class Login {
   email: string = '';
   password: string = '';
   constructor(private http: HttpClient, private userservice: User, private router: Router) {
-    console.log(userservice.getUser());
+    
+  }
+  goToRegister(){
+    this.router.navigate(['/register']);
   }
   onSubmit() {
     const payload = {

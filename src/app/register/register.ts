@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 interface ApiRes {
   msg: string
@@ -9,7 +8,7 @@ interface ApiRes {
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, HttpClientModule],
+  imports: [FormsModule],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
@@ -29,7 +28,7 @@ export class Register {
       .subscribe({
         next: (response) => {
           console.log('API Response:', response.msg);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/login']);
         },
         error: (error) => {
           console.error('API Error:', error);

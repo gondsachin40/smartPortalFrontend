@@ -1,0 +1,26 @@
+<div class="exam-container">
+  <form (submit)="onSubmit()" class="exam-form">
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" [(ngModel)]="exam.title" required />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" [(ngModel)]="exam.description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="pass_pct">Pass Percentage:</label>
+      <input type="number" id="pass_pct" name="pass_pct" [(ngModel)]="exam.pass_pct" required min="0" max="100" />
+    </div>
+
+    <div class="form-group">
+      <label for="duration_minutes">Duration (minutes):</label>
+      <input type="number" id="duration_minutes" name="duration_minutes" [(ngModel)]="exam.duration_minutes" required min="1" />
+    </div>
+
+    <button type="submit" class="submit-btn">Create Exam</button>
+  </form>
+</div>
+<router-outlet></router-outlet>
