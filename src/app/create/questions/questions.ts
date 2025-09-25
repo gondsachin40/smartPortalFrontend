@@ -1,6 +1,8 @@
 import { Component , OnInit} from '@angular/core'; 
 import { FormsModule } from '@angular/forms'; 
 import { HttpClient } from '@angular/common/http'; 
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
 interface IQuestion { 
   qtype: string,
   prompt: string, 
@@ -10,17 +12,18 @@ interface IQuestion {
 }; 
 @Component({ 
   selector: 'app-questions', 
-  imports: [FormsModule], 
+  imports: [FormsModule , CommonModule], 
   standalone : true,
   templateUrl: './questions.html', 
   styleUrl: './questions.css' 
 }) 
 export class Questions  implements OnInit { 
+  msg : string = "show problems";
   show : boolean = true; 
   Show :boolean = false;
   question: IQuestion = { qtype : "objective", prompt: '', choices: ['', '', '', ''], correct_answer: '', marks: 0, };
   questions: IQuestion[] = []; 
-  constructor(private http : HttpClient){ }
+  constructor(private http : HttpClient , private snack : MatSnackBar){ }
     ngOnInit(): void {
       if(this.isBrowser()){
         this.http.get<any>('http://127.0.0.1:5000/api/exams/3/questions').subscribe(
@@ -35,12 +38,22 @@ export class Questions  implements OnInit {
     } 
     toggle_quesions() : void{
       this.Show = !this.Show;
+      if(this.msg === "show problems")
+        this.msg = "hide problems";
+      else
+        this.msg = "show problems";
     }
     onSubmit() : void {
        this.http.post<any>('http://127.0.0.1:5000/api/exams/3/questions' , this.question).subscribe(
         { next : (response)=>{ 
           console.log(response) 
           this.questions.push(this.question); 
+
+
+          this.snack.open('Question added successfully!', 'Close', {
+            duration: 3000,
+          });
+
         },error : (error)=>{ console.log(error); } 
       }) } 
       private isBrowser(): boolean {

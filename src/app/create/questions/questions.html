@@ -1,65 +1,73 @@
-<p>questions works!</p>
-<button (click)="toggle_quesions()">Show problems</button>
+<!-- Toggle Button -->
+<button (click)="toggle_quesions()" class="toggle-btn">{{ msg }}</button>
+
+<!-- Show Questions -->
 @if(Show){
-@for(item of questions; track item){
-  <div class="form-container">
-    <p id = "prompt">{{item.prompt}}</p>
-    <p id = "choice1">{{item.choices[0]}}</p>
-    <p id = "choice2">{{item.choices[1]}}</p>
-    <p id = "choice3">{{item.choices[2]}}</p>
-    <p id = "choice4">{{item.choices[3]}}</p>
-    <p id = "choice4">{{item.correct_answer}}</p>
-    <p id="marks">{{item.marks}}</p>
-    
-  </div>
+  @for(item of questions; track item){
+    <div class="question-card">
+      <p class="question-title">{{ item.prompt }}</p>
+      
+      <div class="choice" [ngClass]="{'correct': item.choices[0] === item.correct_answer}">
+        A. {{ item.choices[0] }}
+      </div>
+      <div class="choice" [ngClass]="{'correct': item.choices[1] === item.correct_answer}">
+        B. {{ item.choices[1] }}
+      </div>
+      <div class="choice" [ngClass]="{'correct': item.choices[2] === item.correct_answer}">
+        C. {{ item.choices[2] }}
+      </div>
+      <div class="choice" [ngClass]="{'correct': item.choices[3] === item.correct_answer}">
+        D. {{ item.choices[3] }}
+      </div>
+
+      <p class="marks">Marks: {{ item.marks }}</p>
+    </div>
+  }
 }
-}
-<button (click)="toggle()">show</button>
+
+<!-- Show Add Question Form -->
 @if(show){
-    <div class="form-container">
-  <form (submit)="onSubmit()" class="data-form">
-    
-    <!-- Question Prompt -->
-    <div class="form-group">
-      <label for="prompt">Question Prompt:</label>
-      <input type="text" id="prompt" [(ngModel)]="question.prompt" name="prompt" required />
-    </div>
-    
-    <!-- Choices -->
-    <div class="form-group">
-      <label for="choice1">Choice 1:</label>
-      <input type="text" id="choice1" [(ngModel)]="question.choices[0]" name="choice1" required />
-    </div>
-    
-    <div class="form-group">
-      <label for="choice2">Choice 2:</label>
-      <input type="text" id="choice2" [(ngModel)]="question.choices[1]" name="choice2" required />
-    </div>
-    
-    <div class="form-group">
-      <label for="choice3">Choice 3:</label>
-      <input type="text" id="choice3" [(ngModel)]="question.choices[2]" name="choice3" required />
-    </div>
-    
-    <div class="form-group">
-      <label for="choice4">Choice 4:</label>
-      <input type="text" id="choice4" [(ngModel)]="question.choices[3]" name="choice4" required />
-    </div>
-    
-    <div class="form-group">
-      <label for="correctAnswer">Correct Answer:</label>
-      <input type="text" id="correctAnswer" [(ngModel)]="question.correct_answer" name="correct_answer" required />
-    </div>
-    
-    <div class="form-group">
-      <label for="marks">Marks:</label>
-      <input type="number" id="marks" [(ngModel)]="question.marks" name="marks" required />
-    </div>
+  <div class="form-container">
+    <form (submit)="onSubmit()" class="data-form">
+      
+      <div class="form-group">
+        <label for="prompt">Question Prompt:</label>
+        <input type="text" id="prompt" [(ngModel)]="question.prompt" name="prompt" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="choice1">Choice 1:</label>
+        <input type="text" id="choice1" [(ngModel)]="question.choices[0]" name="choice1" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="choice2">Choice 2:</label>
+        <input type="text" id="choice2" [(ngModel)]="question.choices[1]" name="choice2" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="choice3">Choice 3:</label>
+        <input type="text" id="choice3" [(ngModel)]="question.choices[2]" name="choice3" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="choice4">Choice 4:</label>
+        <input type="text" id="choice4" [(ngModel)]="question.choices[3]" name="choice4" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="correctAnswer">Correct Answer:</label>
+        <input type="text" id="correctAnswer" [(ngModel)]="question.correct_answer" name="correct_answer" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="marks">Marks:</label>
+        <input type="number" id="marks" [(ngModel)]="question.marks" name="marks" required />
+      </div>
 
-    <button type="submit" class="submit-btn">Add Question</button>
-  </form>
-</div>
-
-}@else{
-    <h1>kya be</h1>
+      <button type="submit" class="submit-btn">Add Question</button>
+    </form>
+  </div>
+} @else {
+  <h2 style="text-align: center; color: gray;">Form is hidden</h2>
 }

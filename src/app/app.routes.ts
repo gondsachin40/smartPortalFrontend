@@ -5,6 +5,8 @@ import { App } from './app';
 import { Home } from './home/home';
 import { Create } from './create/create';
 import { Questions } from './create/questions/questions';
+import { Dashboard } from './admin/dashboard/dashboard';
+import { Admin } from './admin/admin';
 export const routes: Routes = [
     { path: '', component: App },
     { path: 'login', component: Login },
@@ -16,5 +18,7 @@ export const routes: Routes = [
                 path : 'questions' , component : Questions
             }
         ]
-    }
+    },
+    {path : 'admin' , component : Admin},
+    {path : 'admin/dashboard' , component : Dashboard}
 ];
