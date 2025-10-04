@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone : true,
@@ -9,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './home.css'
 })
 export class Home {
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient , private router : Router){
 
   }
   callme(){
@@ -22,6 +23,9 @@ export class Home {
           console.error('API Error:', error);
         }
       });
+  }
+  goto(s : string){
+    this.router.navigate([`${s}`]);
   }
 
 }

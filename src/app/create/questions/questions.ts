@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http'; 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 interface IQuestion { 
   qtype: string,
   prompt: string, 
@@ -23,10 +24,11 @@ export class Questions  implements OnInit {
   Show :boolean = false;
   question: IQuestion = { qtype : "objective", prompt: '', choices: ['', '', '', ''], correct_answer: '', marks: 0, };
   questions: IQuestion[] = []; 
-  constructor(private http : HttpClient , private snack : MatSnackBar){ }
+  constructor(private http : HttpClient , private snack : MatSnackBar , private route : ActivatedRoute){ }
     ngOnInit(): void {
       if(this.isBrowser()){
-        this.http.get<any>('http://127.0.0.1:5000/api/exams/3/questions').subscribe(
+        let id = this.route.snapshot.paramMap.get('id');  
+        this.http.get<any>(`http://127.0.0.1:5000/api/exams/${id}/questions`).subscribe(
         { next : (response)=>{ 
           this.questions = response; 
         },error : (error)=>{ console.log(error); } 
@@ -44,12 +46,11 @@ export class Questions  implements OnInit {
         this.msg = "show problems";
     }
     onSubmit() : void {
-       this.http.post<any>('http://127.0.0.1:5000/api/exams/3/questions' , this.question).subscribe(
+        let id = this.route.snapshot.paramMap.get('id');  
+       this.http.post<any>(`http://127.0.0.1:5000/api/exams/${id}/questions` , this.question).subscribe(
         { next : (response)=>{ 
           console.log(response) 
           this.questions.push(this.question); 
-
-
           this.snack.open('Question added successfully!', 'Close', {
             duration: 3000,
           });

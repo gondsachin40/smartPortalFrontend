@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
+import { ActivatedRoute } from '@angular/router';
 interface ApiRes {
   duration: number,
   id: number,
@@ -36,6 +36,8 @@ export class Exams {
   go(n: number) {
     this.router.navigate(['/exams/run/' + `${n}`]);
   }
-
+  edit(id: number) {
+    this.router.navigate(['/create/questions/' + `${id}`]);
+  }
 
 }

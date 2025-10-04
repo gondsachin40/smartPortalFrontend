@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { RouterOutlet } from '@angular/router'
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-create',
   standalone : true,
-  imports: [FormsModule , RouterOutlet],
+  imports: [FormsModule],
   templateUrl: './create.html',
   styleUrl: './create.css'
 })
 export class Create {
-  constructor(private http : HttpClient){
+  constructor(private http : HttpClient , private router: Router) {
 
   }
    exam = {
@@ -23,7 +23,7 @@ export class Create {
     console.log(this.exam);
     this.http.post<any>('http://127.0.0.1:5000/api/exams' , this.exam).subscribe({
       next : (response)=>{
-        console.log(response)
+        this.router.navigate(['/exams']);
       },error : (error)=>{
         console.log(error);
       }

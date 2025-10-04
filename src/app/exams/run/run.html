@@ -1,20 +1,36 @@
-@for(item of arr; track item){
-<div class="question-card">
-    <p class="question-title">{{ item.prompt }}</p>
+@if(empty){
+ <h1>EXAM IS EMPTY</h1>
+}@else{
+<div *ngIf="arr.length && !quizCompleted">
+  <div class="question-card">
+    <p class="question-title">
+      Question {{ currentIndex + 1 }} of {{ arr.length }}
+    </p>
+    <p>{{ arr[currentIndex].prompt }}</p>
+    
+    <div class="choice" *ngFor="let choice of arr[currentIndex].choices; let i = index">
+      <label>
+        <input 
+          type="radio" 
+          [name]="'choice' + arr[currentIndex].id"
+          [value]="choice"
+          [(ngModel)]="selectedChoices[arr[currentIndex].id]"
+          (change)="selectChoice(choice)" 
+ >
+  {{ fromCharCode(i) }}. {{ choice }}
+      </label>
+    </div>
+    
+    <p class="marks">Marks: {{ arr[currentIndex].marks }}</p>
+    <button (click)="prev()" [disabled]="currentIndex === 0">Previous</button>
+    <button (click)="next()">
+      {{ currentIndex === arr.length - 1 ? "Submit" : "Next" }}
+    </button>
+  </div>
+</div>
 
-    <div class="choice">
-        A. {{ item.choices[0] }}
-    </div>
-    <div class="choice">
-        B. {{ item.choices[1] }}
-    </div>
-    <div class="choice">
-        C. {{ item.choices[2] }}
-    </div>
-    <div class="choice">
-        D. {{ item.choices[3] }}
-    </div>
-
-    <p class="marks">Marks: {{ item.marks }}</p>
+<div *ngIf="quizCompleted">
+  <h2>Quiz Completed!</h2>
+  <p>Your Score: {{ score }}</p>
 </div>
 }
