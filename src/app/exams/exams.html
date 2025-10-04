@@ -1,0 +1,11 @@
+<div class="card-container">
+    @for(x of arr; track x){
+    <div class="card">
+        <h2><span>ID:</span> {{x.id}}</h2>
+        <h2><span>Duration:</span> {{x.duration}}</h2>
+        <h2><span>Pass Pot:</span> {{x.pass_pot}}</h2>
+        <h2><span>Title:</span> {{x.title}}</h2>
+        <button (click)="go(x.id)">Start</button>
+    </div>
+    }
+</div>
